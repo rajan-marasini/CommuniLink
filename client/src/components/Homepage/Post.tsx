@@ -2,8 +2,9 @@ import { likeAPost } from "@/api/post.api";
 import { likeAPostStateUpdate } from "@/features/postSlice";
 import { userSelector } from "@/features/userSlice";
 import { PostType } from "@/types/types";
-import { Heart, MessageCircle, Send } from "lucide-react";
+import { Heart, Send } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
+import CommentModelTrigger from "../dialogue/commentModelTrigger";
 
 interface Props {
     post: PostType;
@@ -14,8 +15,6 @@ const Post = ({ post }: Props) => {
     const dispatch = useDispatch();
     const handleLikeClick = async (postId: string) => {
         try {
-            console.log("post id is", postId);
-            console.log("userid is ", user?.id);
             dispatch(likeAPostStateUpdate({ postId, userId: user?.id }));
 
             await likeAPost(postId);
@@ -32,18 +31,29 @@ const Post = ({ post }: Props) => {
                 />
 
                 <div className="postReacts flex items-start gap-6">
-                    <Heart
-                        fill={
-                            post.likedBy?.includes(user?.id)
-                                ? "#f42f3a"
-                                : "white"
-                        }
-                        className="cursor-pointer"
-                        onClick={() => handleLikeClick(post.id)}
-                        size={30}
-                    />
+                    <div className="flex items-center gap-2">
+                        <Heart
+                            fill={
+                                post.likedBy?.includes(user?.id)
+                                    ? "#f42f3a"
+                                    : "white"
+                            }
+                            className="cursor-pointer"
+                            onClick={() => handleLikeClick(post.id)}
+                            size={30}
+                        />
+                        <span className="text-xl font-bold">
+                            {post.likedBy?.length ? post.likedBy?.length : ""}
+                        </span>
+                    </div>
 
-                    <MessageCircle size={30} className="cursor-pointer" />
+                    <div className="flex items-center gap-2">
+                        <CommentModelTrigger postId={post.id} />
+                        <span className="text-xl font-bold">
+                            {post.comments?.length ? post.comments.length : ""}
+                        </span>
+                    </div>
+
                     <Send
                         size={32}
                         strokeWidth={2.5}
@@ -51,10 +61,6 @@ const Post = ({ post }: Props) => {
                         className="cursor-pointer"
                     />
                 </div>
-
-                <span className="dark:text-white text-gray text-sm">
-                    {post.likedBy?.length} likes
-                </span>
 
                 <div className="detail">
                     <span className="font-bold">{post?.user?.name}</span>{" "}

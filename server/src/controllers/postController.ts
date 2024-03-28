@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { prisma } from "../config/prismaConfig";
 import { TryCatch } from "../middleware/errorHandling";
 import { PostService } from "../services/postServices";
 import { PostRequestBody } from "../types/types";
@@ -28,14 +27,7 @@ export const createPost = TryCatch(
 
 export const getAllPost = TryCatch(
     async (req: Request, res: Response, next: NextFunction) => {
-        const posts = await prisma.post.findMany({
-            include: {
-                user: true,
-            },
-            orderBy: {
-                createdAt: "desc",
-            },
-        });
+        const posts = await PostService.getAllPosts();
 
         return res.status(200).json({
             posts,

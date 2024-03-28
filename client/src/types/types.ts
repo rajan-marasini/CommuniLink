@@ -39,7 +39,7 @@ export type PostType = {
     imageSrc?: string;
     likedBy?: string[];
     user?: UserType;
-    comment?: CommentType[];
+    comments?: CommentType[];
 };
 
 export type CommentType = {

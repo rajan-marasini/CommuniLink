@@ -16,6 +16,9 @@ export class PostService {
                     },
                 },
             },
+            include: {
+                user: true,
+            },
         });
         return post;
     };
@@ -37,6 +40,19 @@ export class PostService {
             },
         });
         return post;
+    };
+
+    static getAllPosts = async () => {
+        const posts = await prisma.post.findMany({
+            include: {
+                user: true,
+                comments: true,
+            },
+            orderBy: {
+                createdAt: "desc",
+            },
+        });
+        return posts;
     };
 
     static deletePost = async (postId: string) => {

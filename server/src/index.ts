@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import express from "express";
 import morgan from "morgan";
 import { handleError } from "./middleware/errorHandling";
+import { commentRoute } from "./routes/commentRoute";
 import { imageRoute } from "./routes/imageRoute";
 import { postRoute } from "./routes/postRoute";
 import { userRoute } from "./routes/userRoute";
@@ -31,6 +32,7 @@ app.get("/", (req, res) => {
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/post", postRoute);
 app.use("/api/v1/image", imageRoute);
+app.use("/api/v1/comment", commentRoute);
 app.use(handleError);
 
 const PORT = process.env.PORT || 8000;
