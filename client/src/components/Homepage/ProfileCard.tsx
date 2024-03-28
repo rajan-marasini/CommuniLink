@@ -1,22 +1,27 @@
 import { fetchOneUser } from "@/api/user.api";
-import { userSelector } from "@/features/userSlice";
+import { followaPerson, userSelector } from "@/features/userSlice";
 import { UserType } from "@/types/types";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { ProfileModalTrigger } from "../Profile/ProfileModalTrigger";
-import ShowFollowerCard from "../Profile/ShowFollowerCard";
-import ShowFollowingCard from "../Profile/ShowFollowingCard";
+import { ProfileModalTrigger } from "../dialogue/ProfileModalTrigger";
+import ShowFollowerCard from "../dialogue/ShowFollowerCard";
+import ShowFollowingCard from "../dialogue/ShowFollowingCard";
 
 const ProfileCard = () => {
     const { pathname } = useLocation();
     const user = useSelector(userSelector);
+    const dispatch = useDispatch();
 
     const [newuser, setNewUser] = useState<UserType | null>(null);
 
-    const id = pathname.split("/")[pathname.split("/").length - 1] || user?.id;
+    const id = pathname.split("/")[pathname.split("/").length - 1];
 
     const isPersonalProfile = id === user?.id;
+
+    const handleFollowUser = async (id: string) => {
+        dispatch(followaPerson(id));
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -51,7 +56,12 @@ const ProfileCard = () => {
                 </div>
             ) : (
                 <div className="absolute bottom-28 right-24">
-                    <button className="button px-8 py-2">Follow</button>
+                    <button
+                        className="button px-8 py-2"
+                        onClick={() => handleFollowUser(id)}
+                    >
+                        {user?.following.includes(id) ? "Unfollow" : "Follow"}
+                    </button>
                 </div>
             )}
 

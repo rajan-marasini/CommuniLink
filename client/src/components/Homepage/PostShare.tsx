@@ -23,6 +23,11 @@ const PostShare = () => {
     const handlePost = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsLoading(true);
+        if (!title) {
+            toast.error("Title is required to post");
+            return;
+        }
+
         toast.success("Posting...");
         try {
             const data = await createPost(title, image as File);

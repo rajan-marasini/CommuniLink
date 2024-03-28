@@ -8,15 +8,20 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import ProfileModal from "./ProfileModal";
+import toast from "react-hot-toast";
+import ProfileModal from "../Profile/ProfileModal";
 
 export function ProfileModalTrigger() {
+    const handleProfileUpdate = async () => {
+        toast.success("Updating....");
+    };
+
     return (
         <Dialog>
             <DialogTrigger asChild>
                 <button className="button px-6 py-2">Edit Profile</button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-2xl">
                 <DialogHeader>
                     <DialogTitle>Edit profile</DialogTitle>
                     <DialogDescription>
@@ -25,8 +30,15 @@ export function ProfileModalTrigger() {
                     </DialogDescription>
                 </DialogHeader>
                 <ProfileModal />
+
                 <DialogFooter>
-                    <Button type="submit">Save changes</Button>
+                    <Button variant={"destructive"}>Cancel</Button>
+                    <button
+                        className="button px-6"
+                        onClick={handleProfileUpdate}
+                    >
+                        Update
+                    </button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
