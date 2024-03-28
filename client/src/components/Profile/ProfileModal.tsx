@@ -1,13 +1,46 @@
 import { userSelector } from "@/features/userSlice";
+import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { Input } from "../ui/input";
 
 const ProfileModal = () => {
     const user = useSelector(userSelector);
+    const profileImageRef = useRef<HTMLInputElement | null>(null);
+    const coverImageRef = useRef<HTMLInputElement | null>(null);
     return (
-        <div className="p-6 w-full mx-auto">
+        <div className="py-2 px-4 w-full mx-auto">
             <form onSubmit={() => {}}>
-                <div className="mb-4 flex items-center gap-6 justify-between">
+                <div className="relative mb-16">
+                    <div className="w-full h-48">
+                        <img
+                            src={user?.coverImage || "/img/cover.jpg"}
+                            alt=""
+                            className="w-full h-full rounded-lg cursor-pointer"
+                            onClick={() => coverImageRef.current?.click()}
+                        />
+                    </div>
+                    <div className="w-28  absolute -bottom-12 shadow-md shadow-profileShadow">
+                        <img
+                            src={user?.profileImage || "/img/user.png"}
+                            alt=""
+                            className="w-full h-full rounded-full cursor-pointer"
+                            onClick={() => profileImageRef?.current?.click()}
+                        />
+                    </div>
+                </div>
+                <input
+                    type="file"
+                    hidden
+                    ref={profileImageRef}
+                    accept="image/*"
+                />
+                <input
+                    type="file"
+                    hidden
+                    ref={coverImageRef}
+                    accept="image/*"
+                />
+                <div className="mb-2 flex items-center gap-6 justify-between">
                     <div className="flex-1">
                         <label
                             htmlFor="name"
@@ -17,7 +50,7 @@ const ProfileModal = () => {
                         </label>
                         <Input
                             defaultValue={user?.name.split(" ")[0]}
-                            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+                            className="mt-1 px-3 py-1 border border-gray-300 rounded-md w-full"
                         />
                     </div>
                     <div className="flex-1">
@@ -29,11 +62,11 @@ const ProfileModal = () => {
                         </label>
                         <Input
                             defaultValue={user?.name.split(" ").slice(1)}
-                            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+                            className="mt-1 px-3 py-1 border border-gray-300 rounded-md w-full"
                         />
                     </div>
                 </div>
-                <div className="mb-4">
+                <div className="mb-2">
                     <label
                         htmlFor="email"
                         className="block text-sm font-medium text-gray-700"
@@ -42,11 +75,11 @@ const ProfileModal = () => {
                     </label>
                     <Input
                         value={user?.email}
-                        className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+                        className="mt-1 px-3 py-1 border border-gray-300 rounded-md w-full"
                         readOnly
                     />
                 </div>
-                <div className="mb-4 flex items-center gap-2 justify-between">
+                <div className="mb-2 flex items-center gap-2 justify-between">
                     <div>
                         <label
                             htmlFor="email"
@@ -56,7 +89,7 @@ const ProfileModal = () => {
                         </label>
                         <Input
                             defaultValue={user?.relationStatus}
-                            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+                            className="mt-1 px-3 py-1 border border-gray-300 rounded-md w-full"
                         />
                     </div>
                     <div>
@@ -68,7 +101,7 @@ const ProfileModal = () => {
                         </label>
                         <Input
                             defaultValue={user?.worksAt}
-                            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+                            className="mt-1 px-3 py-1 border border-gray-300 rounded-md w-full"
                         />
                     </div>
                     <div>
@@ -76,11 +109,49 @@ const ProfileModal = () => {
                             htmlFor="email"
                             className="block text-sm font-medium text-gray-700"
                         >
-                            Lives in
+                            Job Title
+                        </label>
+                        <Input
+                            defaultValue={user?.jobTitle}
+                            className="mt-1 px-3 py-1 border border-gray-300 rounded-md w-full"
+                        />
+                    </div>
+                </div>
+                <div className="mb-2 flex items-center gap-2 justify-between">
+                    <div>
+                        <label
+                            htmlFor="email"
+                            className="block text-sm font-medium text-gray-700"
+                        >
+                            State
+                        </label>
+                        <Input
+                            defaultValue={user?.address?.state}
+                            className="mt-1 px-3 py-1 border border-gray-300 rounded-md w-full"
+                        />
+                    </div>
+                    <div>
+                        <label
+                            htmlFor="email"
+                            className="block text-sm font-medium text-gray-700"
+                        >
+                            City
                         </label>
                         <Input
                             defaultValue={user?.address?.city}
-                            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+                            className="mt-1 px-3 py-1 border border-gray-300 rounded-md w-full"
+                        />
+                    </div>
+                    <div>
+                        <label
+                            htmlFor="email"
+                            className="block text-sm font-medium text-gray-700"
+                        >
+                            Street
+                        </label>
+                        <Input
+                            defaultValue={user?.address?.street}
+                            className="mt-1 px-3 py-1 border border-gray-300 rounded-md w-full"
                         />
                     </div>
                 </div>
