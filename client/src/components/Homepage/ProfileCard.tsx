@@ -34,12 +34,20 @@ const ProfileCard = () => {
     return (
         <div className="ProfileCard rounded-3xl flex flex-col gap-4 bg-cardColor dark:bg-darkCardColor pb-1 relative">
             <div className="ProfileImages relative flex flex-col items-center justify-center">
-                <img src="/img/cover.jpg" alt="" className="w-full h-48" />
-                <img
-                    src="/img/img1.png"
-                    alt=""
-                    className="w-28 rounded-full absolute -bottom-12 shadow-md shadow-profileShadow"
-                />
+                <div className="w-full h-64">
+                    <img
+                        src={user?.coverImage || "/img/cover.jpg"}
+                        alt=""
+                        className="w-full h-full rounded-lg"
+                    />
+                </div>
+                <div className="w-28  absolute -bottom-12 shadow-md shadow-profileShadow">
+                    <img
+                        src={user?.profileImage || "/img/user.png"}
+                        alt=""
+                        className="w-full h-full rounded-full"
+                    />
+                </div>
             </div>
 
             <div className="ProfileName flex flex-col items-center mt-12 gap-2">
