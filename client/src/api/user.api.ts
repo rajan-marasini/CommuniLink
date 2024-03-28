@@ -5,11 +5,15 @@ export const getProfile = async () => {
     return data;
 };
 
-export const register = async (
-    name: string,
-    email: string,
-    password: string
-) => {
+export const register = async ({
+    name,
+    email,
+    password,
+}: {
+    name: string;
+    email: string;
+    password: string;
+}) => {
     const res = await axios.post("/api/v1/user/register", {
         name,
         email,

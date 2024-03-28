@@ -41,7 +41,7 @@ const FollowersCardSection = ({ title }: { title: string }) => {
         <div className="FollowersCard w-full rounded-xl gap-4 flex flex-col text-sm mt-4">
             <h3>{title}</h3>
 
-            {Followers.map((follower, i) => (
+            {Followers.slice(0, 9).map((follower, i) => (
                 <FollowerCard follower={follower} key={i} />
             ))}
         </div>

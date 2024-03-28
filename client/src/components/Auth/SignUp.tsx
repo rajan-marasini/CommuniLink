@@ -1,8 +1,14 @@
+import { register } from "@/api/user.api";
+import { userSelector } from "@/features/userSlice";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+    const user = useSelector(userSelector);
+    const navigate = useNavigate();
+
     const [firstName, setFirstName] = useState<string>("");
     const [lastName, setLastName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
@@ -11,11 +17,26 @@ const SignUp = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        toast.success("Registered Successfully");
-        console.log(firstName, lastName, email, password, confirmPassword);
+        try {
+            if (password !== confirmPassword)
+                return toast.error("Password does not match");
+
+            const data = await register({
+                name: firstName + " " + lastName,
+                email,
+                password,
+            });
+
+            if (data.success) {
+                toast.success(data.message);
+                navigate("/auth/login");
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
 
-    return (
+    return !user ? (
         <div className="a-right w-full max-w-2xl flex items-center flex-col justify-center ">
             <form
                 className="infoForm authForm dark:bg-darkCardColor bg-cardColor h-full w-full px-4 flex flex-col gap-4 py-4 rounded-2xl drop-shadow-lg"
@@ -96,6 +117,8 @@ const SignUp = () => {
                 </button>
             </form>
         </div>
+    ) : (
+        <Navigate to="/" />
     );
 };
 

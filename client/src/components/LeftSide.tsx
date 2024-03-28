@@ -4,10 +4,10 @@ import ProfileNavigation from "./Profile/ProfileNavigation";
 
 const ProfileSide = () => {
     return (
-        <div className="profileSide relative flex flex-col gap-4 items-center overflow-hidden mt-4 h-full max-h-screen">
+        <div className="profileSide relative flex flex-col gap-4 items-center overflow-hidden mt-4 h-[95vh] max-h-screen ">
             <LogoSeach />
             <FollowersCardSection title="People you may know" />
-            <div className="w-full absolute bottom-10 z-10">
+            <div className="w-full absolute bottom-0 z-10">
                 <ProfileNavigation />
             </div>
         </div>
