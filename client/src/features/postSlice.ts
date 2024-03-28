@@ -31,9 +31,19 @@ export const postSlice = createSlice({
                 post?.likedBy?.splice(index!, 1);
             }
         },
+        commentOnAPostStateUpdate: (state, action) => {
+            const { postId, comment } = action.payload;
+            const post = state.posts.find((post) => post.id === postId);
+            post?.comments?.push(comment);
+        },
     },
 });
 
-export const { setPosts, addPost, likeAPostStateUpdate } = postSlice.actions;
+export const {
+    setPosts,
+    addPost,
+    likeAPostStateUpdate,
+    commentOnAPostStateUpdate,
+} = postSlice.actions;
 export const postSelector = (state: RootState) => state.post.posts;
 export default postSlice.reducer;

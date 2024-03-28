@@ -20,6 +20,10 @@ export class CommentServices {
                     },
                 },
             },
+            include: {
+                user: true,
+                post: true,
+            },
         });
         return comment;
     };

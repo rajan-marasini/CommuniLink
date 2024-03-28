@@ -19,7 +19,6 @@ const FollowerCard = ({ follower }: Props) => {
             //local state update
             dispatch(followaPerson({ id: userToFollow }));
             //network request
-
             const data = await followUser(userToFollow);
 
             if (data.success) {
