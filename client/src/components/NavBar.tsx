@@ -18,7 +18,10 @@ const NavBar = () => {
                 <IoIosHome size={30} fill={homepage ? "#00f" : ""} />
             </Link>
             <Link to={"/setting"}>
-                <IoSettingsSharp size={24} />
+                <IoSettingsSharp
+                    size={24}
+                    fill={pathname === "/setting" ? "#00f" : ""}
+                />
             </Link>
             <Link to={"/notification"} className="relative">
                 <span className="absolute -right-1 -top-3 font-bold text-lg dark:text-white text-blue-700">
