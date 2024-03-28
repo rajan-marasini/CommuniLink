@@ -28,7 +28,11 @@ export const userSlice = createSlice({
 
             const index = state.user?.following.indexOf(id);
 
-            console.log(index);
+            if (index === -1) {
+                state.user?.following.push(id);
+            } else {
+                state.user?.following.splice(index!, 1);
+            }
         },
     },
 });

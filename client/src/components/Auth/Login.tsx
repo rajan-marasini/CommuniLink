@@ -51,6 +51,7 @@ const Login = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
+                        disabled={isLoading}
                     />
                 </div>
 
@@ -63,6 +64,7 @@ const Login = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
+                        disabled={isLoading}
                     />
                 </div>
 
@@ -78,7 +80,7 @@ const Login = () => {
                     </span>
                 </div>
                 <button
-                    className="button infoButton w-36 h-12 self-end disabled:cursor-not-allowed"
+                    className="button infoButton w-36 h-12 self-end disabled:cursor-not-allowed disabled:opacity-75"
                     type="submit"
                     disabled={isLoading}
                 >

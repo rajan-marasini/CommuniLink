@@ -5,6 +5,19 @@ export const getProfile = async () => {
     return data;
 };
 
+export const register = async (
+    name: string,
+    email: string,
+    password: string
+) => {
+    const res = await axios.post("/api/v1/user/register", {
+        name,
+        email,
+        password,
+    });
+    return res.data;
+};
+
 export const login = async (formValue: { email: string; password: string }) => {
     const { email, password } = formValue;
     const res = await axios.post("/api/v1/user/login", {
