@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { commentOnAPostStateUpdate } from "@/features/postSlice";
+import axios from "axios";
 import { MessageCircle } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -38,7 +39,9 @@ export default function CommentModelTrigger({ postId }: { postId: string }) {
             }
         } catch (error) {
             console.log(error);
-            toast.error("Error while commenting");
+            if (axios.isAxiosError(error) && error.response)
+                toast.error(error.response.data.message);
+            else toast.error("Something went wrong");
         } finally {
             setIsLoading(false);
         }

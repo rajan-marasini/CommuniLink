@@ -1,5 +1,6 @@
 import { userLogout } from "@/api/user.api";
 import { logout, userSelector } from "@/features/userSlice";
+import axios from "axios";
 import { LogOut } from "lucide-react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +17,9 @@ const ProfileNavigation = () => {
             toast.success("Logout successfully");
         } catch (error) {
             console.log(error);
+            if (axios.isAxiosError(error) && error.response)
+                toast.error(error.response.data.message);
+            else toast.error("Something went wrong");
         }
     };
     return (

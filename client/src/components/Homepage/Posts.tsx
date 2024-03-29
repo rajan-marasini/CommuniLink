@@ -2,8 +2,10 @@ import { getAllPost, getAllPostOfUser } from "@/api/post.api";
 import { postSelector, setPosts } from "@/features/postSlice";
 import { userSelector } from "@/features/userSlice";
 import { PostType } from "@/types/types";
+import axios from "axios";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import Post from "./Post";
@@ -31,6 +33,9 @@ const Posts = () => {
                 dispatch(setPosts(data.posts));
             } catch (error) {
                 console.log(error);
+                if (axios.isAxiosError(error) && error.response)
+                    toast.error(error.response.data.message);
+                else toast.error("Something went wrong");
             } finally {
                 setIsLoading(false);
             }

@@ -1,5 +1,6 @@
 import { register } from "@/api/user.api";
 import { userSelector } from "@/features/userSlice";
+import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
@@ -8,6 +9,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 const SignUp = () => {
     const user = useSelector(userSelector);
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
 
     const [firstName, setFirstName] = useState<string>("");
     const [lastName, setLastName] = useState<string>("");
@@ -17,6 +19,7 @@ const SignUp = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
             if (password !== confirmPassword)
                 return toast.error("Password does not match");
@@ -33,6 +36,11 @@ const SignUp = () => {
             }
         } catch (error) {
             console.log(error);
+            if (axios.isAxiosError(error) && error.response)
+                toast.error(error.response.data.message);
+            else toast.error("Something went wrong");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -46,6 +54,7 @@ const SignUp = () => {
 
                 <div className="w-full flex items-center justify-center gap-4">
                     <input
+                        disabled={isLoading}
                         type="text"
                         placeholder="First Name"
                         className="infoInput"
@@ -55,6 +64,7 @@ const SignUp = () => {
                         onChange={(e) => setFirstName(e.target.value)}
                     />
                     <input
+                        disabled={isLoading}
                         type="text"
                         placeholder="Last Name"
                         className="infoInput"
@@ -67,6 +77,7 @@ const SignUp = () => {
 
                 <div className="w-full items-center justify-center">
                     <input
+                        disabled={isLoading}
                         type="text"
                         className="infoInput"
                         name="email"
@@ -79,6 +90,7 @@ const SignUp = () => {
 
                 <div className="w-full flex items-center justify-center gap-4">
                     <input
+                        disabled={isLoading}
                         type="password"
                         placeholder="Password"
                         className="infoInput"
@@ -88,6 +100,7 @@ const SignUp = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <input
+                        disabled={isLoading}
                         type="password"
                         placeholder="Confirm Password"
                         className="infoInput"
@@ -110,8 +123,9 @@ const SignUp = () => {
                     </span>
                 </div>
                 <button
-                    className="button infoButton w-36 h-12 self-end"
+                    className="button infoButton w-36 h-12 self-end disabled:cursor-not-allowed disabled:opacity-75"
                     type="submit"
+                    disabled={isLoading}
                 >
                     Signup
                 </button>

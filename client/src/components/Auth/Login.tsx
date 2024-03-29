@@ -1,5 +1,6 @@
 import { login } from "@/api/user.api";
 import { setUser, userSelector } from "@/features/userSlice";
+import axios from "axios";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,6 +30,9 @@ const Login = () => {
             navigate("/");
         } catch (error) {
             console.log(error);
+            if (axios.isAxiosError(error) && error.response)
+                toast.error(error.response.data.message);
+            else toast.error("Something went wrong");
         } finally {
             setIsLoading(false);
         }

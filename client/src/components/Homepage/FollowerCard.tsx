@@ -1,6 +1,7 @@
 import { followUser } from "@/api/user.api";
 import { followaPerson, userSelector } from "@/features/userSlice";
 import { UserType } from "@/types/types";
+import axios from "axios";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -28,6 +29,9 @@ const FollowerCard = ({ follower }: Props) => {
             }
         } catch (error) {
             console.log(error);
+            if (axios.isAxiosError(error) && error.response)
+                toast.error(error.response.data.message);
+            else toast.error("Something went wrong");
         }
     };
 

@@ -2,7 +2,9 @@ import { likeAPost } from "@/api/post.api";
 import { likeAPostStateUpdate } from "@/features/postSlice";
 import { userSelector } from "@/features/userSlice";
 import { PostType } from "@/types/types";
+import axios from "axios";
 import { Heart, Send } from "lucide-react";
+import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import CommentModelTrigger from "../dialogue/commentModelTrigger";
 
@@ -20,6 +22,9 @@ const Post = ({ post }: Props) => {
             await likeAPost(postId);
         } catch (error) {
             console.log(error);
+            if (axios.isAxiosError(error) && error.response)
+                toast.error(error.response.data.message);
+            else toast.error("Something went wrong");
         }
     };
     return (
