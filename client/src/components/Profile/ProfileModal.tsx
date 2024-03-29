@@ -1,11 +1,13 @@
 import { userSelector } from "@/features/userSlice";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Input } from "../ui/input";
 
 const ProfileModal = () => {
     const user = useSelector(userSelector);
     const profileImageRef = useRef<HTMLInputElement | null>(null);
+    const [profileImage, setProfileImage] = useState<File | null>(null);
+    const [coverImage, setCoverImage] = useState<File | null>(null);
     const coverImageRef = useRef<HTMLInputElement | null>(null);
     return (
         <div className="py-2 px-4 w-full mx-auto">
@@ -13,16 +15,24 @@ const ProfileModal = () => {
                 <div className="relative mb-16">
                     <div className="w-full h-48">
                         <img
-                            src={user?.coverImage || "/img/cover.jpg"}
-                            alt=""
+                            src={
+                                coverImage
+                                    ? URL.createObjectURL(coverImage)
+                                    : user?.coverImage || "/img/cover.jpg"
+                            }
+                            alt="Cover Image"
                             className="w-full h-full rounded-lg cursor-pointer"
                             onClick={() => coverImageRef.current?.click()}
                         />
                     </div>
-                    <div className="w-28  absolute -bottom-12 shadow-md shadow-profileShadow">
+                    <div className="w-28 h-28  absolute -bottom-12 shadow-md shadow-profileShadow">
                         <img
-                            src={user?.profileImage || "/img/user.png"}
-                            alt=""
+                            src={
+                                profileImage
+                                    ? URL.createObjectURL(profileImage)
+                                    : user?.profileImage || "/img/user.png"
+                            }
+                            alt="Proflie Image"
                             className="w-full h-full rounded-full cursor-pointer"
                             onClick={() => profileImageRef?.current?.click()}
                         />
@@ -33,12 +43,16 @@ const ProfileModal = () => {
                     hidden
                     ref={profileImageRef}
                     accept="image/*"
+                    onChange={(e) =>
+                        setProfileImage(e.target.files?.[0] as File)
+                    }
                 />
                 <input
                     type="file"
                     hidden
                     ref={coverImageRef}
                     accept="image/*"
+                    onChange={(e) => setCoverImage(e.target.files?.[0] as File)}
                 />
                 <div className="mb-2 flex items-center gap-6 justify-between">
                     <div className="flex-1">
