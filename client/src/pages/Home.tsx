@@ -14,11 +14,11 @@ const Home = () => {
             <div className="">
                 <LeftSide />
             </div>
-            <div className=" h-full max-h-screen overflow-auto w-full">
+            <div className=" h-full max-h-screen overflow-auto w-full py-4">
                 <PostShare />
                 <Posts />
             </div>
-            <div className="">
+            <div>
                 <RightSide />
             </div>
         </div>

@@ -5,6 +5,7 @@ import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 interface GoogleLoginButtonProps {
     isLoading: boolean;
@@ -15,11 +16,11 @@ const GoogleLoginButton = ({
     isLoading,
     setIsLoading,
 }: GoogleLoginButtonProps) => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleGoogleLogin = async () => {
         try {
             setIsLoading(true);
-            console.log("first");
             const provider = new GoogleAuthProvider();
             const auth = getAuth(app);
 
@@ -33,6 +34,7 @@ const GoogleLoginButton = ({
 
             if (data.success) {
                 dispatch(setUser(data.user));
+                navigate("/");
             }
         } catch (error) {
             toast.error("Something went wrong");
