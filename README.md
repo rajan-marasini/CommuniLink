@@ -71,7 +71,7 @@
     cd social-media-app
 ```
 
-**2. **Install Dependencies:\*\*
+**2. Install Dependencies:**
 
 ```zsh
     cd client && npm install
