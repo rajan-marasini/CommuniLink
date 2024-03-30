@@ -27,6 +27,9 @@ export class PostService {
         const posts = await prisma.post.findMany({
             where: { userId },
             orderBy: { createdAt: "desc" },
+            include: {
+                user: true,
+            },
         });
         return posts;
     };

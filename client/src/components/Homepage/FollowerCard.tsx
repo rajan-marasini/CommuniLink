@@ -44,7 +44,7 @@ const FollowerCard = ({ follower }: Props) => {
                     className="name flex flex-col items-start justify-center"
                 >
                     <span className="font-bold">{follower.name}</span>
-                    <span>@{follower.name.replace("/s+/g", "")}</span>
+                    <span>@{follower.name.split(" ").join("")}</span>
                 </Link>
             </div>
             <button

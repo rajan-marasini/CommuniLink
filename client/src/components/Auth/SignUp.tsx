@@ -5,6 +5,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import GoogleLogin from "./GoogleLoginButton";
 
 const SignUp = () => {
     const user = useSelector(userSelector);
@@ -123,12 +124,16 @@ const SignUp = () => {
                     </span>
                 </div>
                 <button
-                    className="button infoButton w-36 h-12 self-end disabled:cursor-not-allowed disabled:opacity-75"
+                    className="button infoButton w-full h-12 self-end disabled:cursor-not-allowed disabled:opacity-75"
                     type="submit"
                     disabled={isLoading}
                 >
                     Signup
                 </button>
+                <GoogleLogin
+                    isLoading={isLoading}
+                    setIsLoading={setIsLoading}
+                />
             </form>
         </div>
     ) : (

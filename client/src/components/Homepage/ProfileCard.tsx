@@ -36,14 +36,14 @@ const ProfileCard = () => {
             <div className="ProfileImages relative flex flex-col items-center justify-center">
                 <div className="w-full h-64">
                     <img
-                        src={user?.coverImage || "/img/cover.jpg"}
+                        src={newuser?.coverImage || "/img/cover.jpg"}
                         alt=""
                         className="w-full h-full rounded-lg"
                     />
                 </div>
-                <div className="w-28  absolute -bottom-12 shadow-md shadow-profileShadow">
+                <div className="w-32 h-32 absolute -bottom-14 shadow-md shadow-profileShadow">
                     <img
-                        src={user?.profileImage || "/img/user.png"}
+                        src={newuser?.profileImage || "/img/user.png"}
                         alt=""
                         className="w-full h-full rounded-full"
                     />

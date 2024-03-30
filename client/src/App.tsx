@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Messages from "./pages/Messages";
 import PageNotFound from "./pages/NotFound";
 import NotificationPage from "./pages/NotificationPage";
+import PostPage from "./pages/PostPage";
 import Profile from "./pages/Profile";
 import Setting from "./pages/Setting";
 
@@ -22,6 +23,7 @@ const App = () => {
                 </Route>
                 <Route path="/profile/:id" element={<Profile />} />
                 <Route path="/message" element={<Messages />} />
+                <Route path="/post/:id" element={<PostPage />} />
                 <Route path="/setting" element={<Setting />} />
                 <Route path="/notification" element={<NotificationPage />} />
                 <Route path="/*" element={<PageNotFound />} />

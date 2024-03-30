@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import GoogleLogin from "./GoogleLoginButton";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -41,7 +42,7 @@ const Login = () => {
     return !user ? (
         <div className="a-right w-full max-w-2xl flex items-center flex-col justify-center ">
             <form
-                className="infoForm authForm dark:bg-darkCardColor bg-cardColor h-full w-full max-w-md px-4 flex flex-col gap-4 py-4 rounded-2xl drop-shadow-lg"
+                className="infoForm authForm dark:bg-darkCardColor bg-cardColor h-full w-full max-w-sm px-4 flex flex-col gap-4 py-4 rounded-2xl drop-shadow-lg"
                 onSubmit={handleSubmit}
             >
                 <h3 className="font-bold w-full text-3xl ml-4">Login</h3>
@@ -72,6 +73,17 @@ const Login = () => {
                     />
                 </div>
 
+                <button
+                    className="button infoButton w-full h-12 disabled:cursor-not-allowed disabled:opacity-75"
+                    type="submit"
+                    disabled={isLoading}
+                >
+                    {isLoading ? "Loading..." : "Login"}
+                </button>
+                <GoogleLogin
+                    isLoading={isLoading}
+                    setIsLoading={setIsLoading}
+                />
                 <div className="dark:text-white text-gray">
                     <span style={{ fontSize: "12px" }}>
                         Don't have an account yet?.{" "}
@@ -83,13 +95,6 @@ const Login = () => {
                         </Link>
                     </span>
                 </div>
-                <button
-                    className="button infoButton w-36 h-12 self-end disabled:cursor-not-allowed disabled:opacity-75"
-                    type="submit"
-                    disabled={isLoading}
-                >
-                    Login
-                </button>
             </form>
         </div>
     ) : (

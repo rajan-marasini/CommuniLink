@@ -31,6 +31,19 @@ export const login = async (formValue: { email: string; password: string }) => {
     return res.data;
 };
 
+export const loginWithGoogle = async (
+    name: string | null,
+    email: string | null,
+    image: string | null
+) => {
+    const res = await axios.post("/api/v1/user/google-login", {
+        name,
+        email,
+        profileImage: image,
+    });
+    return res.data;
+};
+
 export const userLogout = async () => {
     const { data } = await axios.post("/api/v1/user/logout");
     return data;

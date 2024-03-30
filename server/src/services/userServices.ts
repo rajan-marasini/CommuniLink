@@ -47,20 +47,30 @@ export class UserService {
                 updatedAt: true,
                 notifications: true,
             },
+            orderBy: {
+                createdAt: "desc",
+            },
         });
         return users;
     };
 
-    static createUser = async (
-        name: string,
-        email: string,
-        password: string
-    ) => {
+    static createUser = async ({
+        name,
+        email,
+        password,
+        profileImage,
+    }: {
+        name: string;
+        email: string;
+        password?: string;
+        profileImage?: string;
+    }) => {
         const user = await prisma.user.create({
             data: {
                 name,
                 email,
                 password,
+                profileImage,
             },
         });
         return user;

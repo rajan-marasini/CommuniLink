@@ -25,7 +25,11 @@ export const userRegister = TryCatch(
 
         const hashedPassword = hashPassword(password);
 
-        const user = await UserService.createUser(name, email, hashedPassword);
+        const user = await UserService.createUser({
+            name,
+            email,
+            password: hashedPassword,
+        });
 
         res.status(201).json({
             success: true,
@@ -49,6 +53,9 @@ export const userLogin = TryCatch(
 
         if (!user) return next(new ErrorHandler("Invalid Credentials", 400));
 
+        if (!user.password)
+            return next(new ErrorHandler("Invalid Credentials", 400));
+
         const isPasswordMatched = comparePassword(password, user.password);
 
         if (!isPasswordMatched)
@@ -63,6 +70,50 @@ export const userLogin = TryCatch(
             message: "Successfully Logged In",
             user,
         });
+    }
+);
+
+export const userGoogleLogin = TryCatch(
+    async (
+        req: Request<{}, {}, UserRequestBody>,
+        res: Response,
+        next: NextFunction
+    ) => {
+        const { name, email, profileImage } = req.body;
+
+        if (!name || !email)
+            return next(new ErrorHandler("Provide all the fields", 400));
+
+        const user = await UserService.getAUserByEmail(email);
+
+        if (!user) {
+            const newUser = await UserService.createUser({
+                name,
+                email,
+                profileImage,
+            });
+            const token = jwt.sign(
+                { id: newUser.id },
+                process.env.JWT_SECRET!,
+                {
+                    expiresIn: "7d",
+                }
+            );
+            return res.status(200).cookie("token", token).json({
+                success: true,
+                message: "Successfully Logged In",
+                user: newUser,
+            });
+        } else {
+            const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
+                expiresIn: "7d",
+            });
+            return res.status(200).cookie("token", token).json({
+                success: true,
+                message: "Successfully Logged In",
+                user,
+            });
+        }
     }
 );
 
