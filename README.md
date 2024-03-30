@@ -62,12 +62,12 @@
 
 ## Getting Started
 
--   Pre-requisite: You need to install the nodejs in your system: [node.js documentation]()
+-   Pre-requisite: You need to install the nodejs in your system: [node.js documentation](https://nodejs.org/docs/latest/api/documentation.html)
 
 **1. Clone the Repository:**
 
 ```zsh
-    git clone https://github.com/your-username/social-media-app.git
+    git clone https://github.com/rajan-marasini/CommuniLink.git
     cd social-media-app
 ```
 
