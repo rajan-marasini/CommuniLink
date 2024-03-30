@@ -64,26 +64,26 @@
 
 -   Pre-requisite: You need to install the nodejs in your system: [node.js documentation]()
 
-1. **Clone the Repository:**
+**1. Clone the Repository:**
 
 ```zsh
     git clone https://github.com/your-username/social-media-app.git
     cd social-media-app
 ```
 
-2. **Install Dependencies:**
+**2. **Install Dependencies:\*\*
 
 ```zsh
     cd client && npm install
     cd ../server && npm install
 ```
 
-3. **Setup the Environment Variable**
+**3. Setup the Environment Variable**
 
 -   Create .env files in the frontend and backend directories.
 -   Configure environment variables such as database connection strings, API keys, and secret keys as given .env.sample.
 
-4. **Start the development servers:**
+**4. Start the development servers:**
 
 -   Frontend
 
@@ -97,7 +97,7 @@
     cd server && npm start
 ```
 
-5. **Access the Application**
+**5. Access the Application**
 
 -   Open your browser and navigate to http://localhost:5173 to view the application.
 
