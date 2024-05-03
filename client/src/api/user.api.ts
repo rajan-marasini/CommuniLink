@@ -14,7 +14,7 @@ export const register = async ({
     email: string;
     password: string;
 }) => {
-    const res = await axios.post("/api/v1/user/register", {
+    const res = await axios.post("/api/v1/auth/register", {
         name,
         email,
         password,
@@ -24,7 +24,7 @@ export const register = async ({
 
 export const login = async (formValue: { email: string; password: string }) => {
     const { email, password } = formValue;
-    const res = await axios.post("/api/v1/user/login", {
+    const res = await axios.post("/api/v1/auth/login", {
         email,
         password,
     });
@@ -36,7 +36,7 @@ export const loginWithGoogle = async (
     email: string | null,
     image: string | null
 ) => {
-    const res = await axios.post("/api/v1/user/google-login", {
+    const res = await axios.post("/api/v1/auth/google-login", {
         name,
         email,
         profileImage: image,
@@ -45,7 +45,7 @@ export const loginWithGoogle = async (
 };
 
 export const userLogout = async () => {
-    const { data } = await axios.post("/api/v1/user/logout");
+    const { data } = await axios.post("/api/v1/auth/logout");
     return data;
 };
 
@@ -61,7 +61,17 @@ export const followUser = async (id: string) => {
 };
 
 export const fetchOneUser = async (id: string) => {
-    const res = await axios.get(`/api/v1/user/get/${id}`);
+    const res = await axios.get(`/api/v1/user/${id}`);
 
+    return res.data;
+};
+
+export const getAllFollowersOfAUser = async (id: string) => {
+    const res = await axios.get("/api/v1/user/followers/" + id);
+    return res.data;
+};
+
+export const getAllFollowingOfAUser = async (id: string) => {
+    const res = await axios.get("/api/v1/user/following/" + id);
     return res.data;
 };

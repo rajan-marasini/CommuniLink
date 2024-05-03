@@ -25,7 +25,7 @@ const ProfileNavigation = () => {
     return (
         <div className="flex bg-cardColor dark:bg-darkCardColor py-2 items-center justify-between px-2 rounded-lg">
             <Link
-                to={`profile/${user?.id}`}
+                to={`profile/${user?._id}`}
                 className="flex gap-2 items-center flex-1"
             >
                 <AvatarDemo imageUrl={user?.profileImage} />

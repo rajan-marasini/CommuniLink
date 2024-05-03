@@ -1,6 +1,6 @@
 import { followUser } from "@/api/user.api";
 import { followaPerson, userSelector } from "@/features/userSlice";
-import { UserType } from "@/types/types";
+import { UserType } from "@/interfaces/types";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +18,7 @@ const FollowerCard = ({ follower }: Props) => {
     const handleFollowUser = async (userToFollow: string, name: string) => {
         try {
             //local state update
-            dispatch(followaPerson({ id: userToFollow }));
+            dispatch(followaPerson({ _id: userToFollow }));
             //network request
             const data = await followUser(userToFollow);
 
@@ -40,7 +40,7 @@ const FollowerCard = ({ follower }: Props) => {
             <div className="flex gap-2">
                 <AvatarDemo imageUrl={follower.profileImage} />
                 <Link
-                    to={`/profile/${follower.id}`}
+                    to={`/profile/${follower._id}`}
                     className="name flex flex-col items-start justify-center"
                 >
                     <span className="font-bold">{follower.name}</span>
@@ -49,9 +49,11 @@ const FollowerCard = ({ follower }: Props) => {
             </div>
             <button
                 className="button fc-button h-8 px-5"
-                onClick={() => handleFollowUser(follower.id, follower.name)}
+                onClick={() => handleFollowUser(follower._id, follower.name)}
             >
-                {user?.following?.includes(follower.id) ? "Unfollow" : "Follow"}
+                {user?.following?.includes(follower._id)
+                    ? "Unfollow"
+                    : "Follow"}
             </button>
         </div>
     );

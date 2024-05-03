@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+//eslint-disable-next-line
 module.exports = {
     darkMode: ["class"],
     content: [
@@ -89,5 +90,6 @@ module.exports = {
             },
         },
     },
+    // eslint-disable-next-line
     plugins: [require("tailwindcss-animate")],
 };

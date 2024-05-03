@@ -31,7 +31,7 @@ export const createPost = async (title: string, image?: File) => {
 };
 
 export const getAllPost = async () => {
-    const { data } = await axios.get("/api/v1/post/get-all-posts");
+    const { data } = await axios.get("/api/v1/post/all-posts");
     return data;
 };
 

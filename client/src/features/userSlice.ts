@@ -1,5 +1,5 @@
 import { RootState } from "@/app/store";
-import { UserType } from "@/types/types";
+import { UserType } from "@/interfaces/types";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface UserState {
@@ -24,12 +24,12 @@ export const userSlice = createSlice({
             state.user = action.payload;
         },
         followaPerson: (state, action) => {
-            const { id } = action.payload;
+            const { _id } = action.payload;
 
-            const index = state.user?.following.indexOf(id);
+            const index = state.user?.following.indexOf(_id);
 
             if (index === -1) {
-                state.user?.following.push(id);
+                state.user?.following.push(_id);
             } else {
                 state.user?.following.splice(index!, 1);
             }

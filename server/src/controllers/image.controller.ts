@@ -5,9 +5,8 @@ import {
     ref,
     uploadBytesResumable,
 } from "firebase/storage";
-import { app } from "../config/firebase";
-import { TryCatch } from "../middleware/errorHandling";
-import { ErrorHandler } from "../utils/utilityClasses";
+import { app } from "../config/firebase.config";
+import { ErrorHandler, TryCatch } from "../interfaces/error.interface";
 
 export const uploadImage = TryCatch(
     async (req: Request, res: Response, next: NextFunction) => {

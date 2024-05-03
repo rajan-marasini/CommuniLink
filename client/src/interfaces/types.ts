@@ -1,24 +1,24 @@
 export type UserType = {
-    id: string;
+    _id: string;
     name: string;
     email: string;
-    password?: string;
+    accountType?: string;
     profileImage?: string;
     coverImage?: string;
     jobTitle?: string;
     relationStatus?: string;
     worksAt?: string;
-    address?: Address;
+    address?: string;
     following: string[];
     followers: string[];
     createdAt: Date;
     updatedAt: Date;
-    posts?: PostType[];
+    posts: string[] | PostType[];
     notifications?: NotificationType[];
 };
 
 export type NotificationType = {
-    id?: string;
+    _id?: string;
     message?: string;
     senderId?: string;
     revceiverId?: string;
@@ -26,24 +26,17 @@ export type NotificationType = {
     user?: UserType;
 };
 
-export type Address = {
-    street?: string;
-    city?: string;
-    state?: string;
-    zip?: string;
-};
-
 export type PostType = {
-    id: string;
+    _id: string;
     title?: string;
     imageSrc?: string;
     likedBy?: string[];
-    user?: UserType;
+    userId: UserType;
     comments?: CommentType[];
 };
 
 export type CommentType = {
-    id: string;
+    _id: string;
     comment: string;
     post: PostType;
     postId: string;

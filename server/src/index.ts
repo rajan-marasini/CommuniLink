@@ -3,36 +3,35 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import morgan from "morgan";
-import { handleError } from "./middleware/errorHandling";
-import { commentRoute } from "./routes/commentRoute";
-import { imageRoute } from "./routes/imageRoute";
-import { postRoute } from "./routes/postRoute";
-import { userRoute } from "./routes/userRoute";
+import { handleError } from "./middlewares/error.handler";
+import authRoute from "./routes/auth.route";
+import postRoute from "./routes/post.route";
+import userRoute from "./routes/user.route";
+import { connectDB } from "./utils/connectDB";
 
 dotenv.config();
-
+connectDB();
 const app = express();
 
-//middleware
 app.use(express.json());
-app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 app.use(
     cors({
         origin: ["http://localhost:5173"],
         credentials: true,
     })
 );
+app.use(cookieParser());
 app.use(morgan("dev"));
 
 app.get("/", (req, res) => {
-    res.send("<h1>API Index Page</h1>");
+    res.send("Hello World");
 });
 
-//user defined api middleware
+//middleware
+app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/post", postRoute);
-app.use("/api/v1/image", imageRoute);
-app.use("/api/v1/comment", commentRoute);
 app.use(handleError);
 
 const PORT = process.env.PORT || 8000;

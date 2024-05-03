@@ -1,7 +1,7 @@
 import { likeAPost } from "@/api/post.api";
 import { likeAPostStateUpdate } from "@/features/postSlice";
 import { userSelector } from "@/features/userSlice";
-import { PostType } from "@/types/types";
+import { PostType } from "@/interfaces/types";
 import axios from "axios";
 import { Heart, Send } from "lucide-react";
 import toast from "react-hot-toast";
@@ -17,7 +17,7 @@ const Post = ({ post }: Props) => {
     const dispatch = useDispatch();
     const handleLikeClick = async (postId: string) => {
         try {
-            dispatch(likeAPostStateUpdate({ postId, userId: user?.id }));
+            dispatch(likeAPostStateUpdate({ postId, userId: user?._id }));
 
             await likeAPost(postId);
         } catch (error) {
@@ -39,12 +39,12 @@ const Post = ({ post }: Props) => {
                     <div className="flex items-center gap-2">
                         <Heart
                             fill={
-                                post.likedBy?.includes(user?.id)
+                                post.likedBy?.includes(user?._id)
                                     ? "#f42f3a"
                                     : "white"
                             }
                             className="cursor-pointer"
-                            onClick={() => handleLikeClick(post.id)}
+                            onClick={() => handleLikeClick(post._id)}
                             size={30}
                         />
                         <span className="text-xl font-bold">
@@ -53,7 +53,7 @@ const Post = ({ post }: Props) => {
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <CommentModelTrigger postId={post.id} />
+                        <CommentModelTrigger postId={post._id} />
                         <span className="text-xl font-bold">
                             {post.comments?.length ? post.comments.length : ""}
                         </span>
@@ -68,7 +68,7 @@ const Post = ({ post }: Props) => {
                 </div>
 
                 <div className="detail">
-                    <span className="font-bold">{post?.user?.name}</span>{" "}
+                    <span className="font-bold">{post?.userId?.name}</span>{" "}
                     <span>{post.title}</span>
                 </div>
             </div>

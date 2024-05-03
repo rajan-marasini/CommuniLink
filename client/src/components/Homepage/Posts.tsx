@@ -1,7 +1,7 @@
 import { getAllPost, getAllPostOfUser } from "@/api/post.api";
 import { postSelector, setPosts } from "@/features/postSlice";
 import { userSelector } from "@/features/userSlice";
-import { PostType } from "@/types/types";
+import { PostType } from "@/interfaces/types";
 import axios from "axios";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -22,7 +22,7 @@ const Posts = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            if (!user?.id) return;
+            if (!user?._id) return;
             setIsLoading(true);
             try {
                 const data =
@@ -41,7 +41,7 @@ const Posts = () => {
             }
         };
         fetchData();
-    }, [id, pathname, user?.id, dispatch]);
+    }, [id, pathname, user?._id, dispatch]);
 
     return !isLoading ? (
         posts.length === 0 ? (

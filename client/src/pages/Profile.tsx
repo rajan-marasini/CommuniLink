@@ -18,7 +18,7 @@ const Profile = () => {
             <ProfileLeft />
             <div className="Profile-center flex flex-col gap-4 max-h-screen overflow-auto">
                 <ProfileCard />
-                {userId === user.id && <PostShare />}
+                {userId === user._id && <PostShare />}
                 <Posts />
             </div>
             <RightSide />

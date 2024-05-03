@@ -1,6 +1,6 @@
 import { fetchOneUser } from "@/api/user.api";
 import { followaPerson, userSelector } from "@/features/userSlice";
-import { UserType } from "@/types/types";
+import { UserType } from "@/interfaces/types";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
@@ -17,7 +17,7 @@ const ProfileCard = () => {
 
     const id = pathname.split("/")[pathname.split("/").length - 1];
 
-    const isPersonalProfile = id === user?.id;
+    const isPersonalProfile = id === user?._id;
 
     const handleFollowUser = async (id: string) => {
         dispatch(followaPerson(id));

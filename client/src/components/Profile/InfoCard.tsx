@@ -1,6 +1,6 @@
 import { fetchOneUser, userLogout } from "@/api/user.api";
 import { logout, userSelector } from "@/features/userSlice";
-import { UserType } from "@/types/types";
+import { UserType } from "@/interfaces/types";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -74,7 +74,7 @@ const InfoCard = () => {
                 <span>{user?.worksAt}</span>
             </div>
 
-            {id === auth?.id && (
+            {id === auth?._id && (
                 <button
                     className="button w-28 h-8 mt-24 self-end"
                     onClick={handleLogout}
