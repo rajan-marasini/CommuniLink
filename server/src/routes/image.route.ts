@@ -1,12 +1,18 @@
 import express from "express";
 import multer from "multer";
-import { uploadImage } from "../controllers/image.controller";
+import { ImageController } from "../controllers/image.controller";
 
 const photoMiddleware = multer({
     storage: multer.memoryStorage(),
 });
 
 const router = express.Router();
-router.post("/upload", photoMiddleware.single("photo"), uploadImage);
+const imageController = new ImageController();
+
+router.post(
+    "/upload",
+    photoMiddleware.single("photo"),
+    imageController.uploadImage
+);
 
 export { router as imageRoute };

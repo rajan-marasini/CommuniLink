@@ -24,7 +24,7 @@ export default class UserServices {
     };
 
     static getAllUsers = async (userId: string) => {
-        const users = await User.find().sort({ createdAt: -1 });
+        const users = await User.find().sort({ createdAt: -1 }).limit(40);
         const index = users.findIndex((user) => user._id === userId);
         users.splice(index, 1);
         return users;

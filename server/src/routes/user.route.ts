@@ -1,27 +1,19 @@
 import { faker } from "@faker-js/faker";
 import bcrypt from "bcrypt";
 import express from "express";
-import {
-    deleteUser,
-    followUser,
-    getAllUsers,
-    getFollowers,
-    getFollowing,
-    getUser,
-    updateUser,
-    userProfile,
-} from "../controllers/user.controller";
+import { UserController } from "../controllers/user.controller";
 import { TryCatch } from "../interfaces/error.interface";
 import { isAuthorized } from "../middlewares/auth.middleware";
 import { User } from "../models/user.model";
 
 const router = express.Router();
+const userController = new UserController();
 
-router.get("/profile", isAuthorized, userProfile);
-router.post("/follow/:targetUserId", isAuthorized, followUser);
-router.get("/all-users", isAuthorized, getAllUsers);
-router.get("/followers/:userId", isAuthorized, getFollowers);
-router.get("/following/:userId", isAuthorized, getFollowing);
+router.get("/profile", isAuthorized, userController.userProfile);
+router.post("/follow/:targetUserId", isAuthorized, userController.followUser);
+router.get("/all-users", isAuthorized, userController.getAllUsers);
+router.get("/followers/:userId", isAuthorized, userController.getFollowers);
+router.get("/following/:userId", isAuthorized, userController.getFollowing);
 
 router.get(
     "/fake",
@@ -46,7 +38,7 @@ router.get("/delete", async (req, res) => {
 });
 router
     .route("/:userId")
-    .get(getUser)
-    .put(isAuthorized, updateUser)
-    .delete(isAuthorized, deleteUser);
+    .get(userController.getUser)
+    .put(isAuthorized, userController.updateUser)
+    .delete(isAuthorized, userController.deleteUser);
 export default router;

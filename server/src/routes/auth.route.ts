@@ -1,17 +1,13 @@
 import express from "express";
-import {
-    userCredentialLogin,
-    userGoogleLogin,
-    userLogout,
-    userRegister,
-} from "../controllers/auth.controller";
+import { AuthController } from "../controllers/auth.controller";
 import { isAuthorized } from "../middlewares/auth.middleware";
 
 const router = express.Router();
+const authController = new AuthController();
 
-router.post("/register", userRegister);
-router.post("/login", userCredentialLogin);
-router.post("/google-login", userGoogleLogin);
-router.post("/logout", isAuthorized, userLogout);
+router.post("/register", authController.userRegister);
+router.post("/login", authController.userCredentialLogin);
+router.post("/google-login", authController.userGoogleLogin);
+router.post("/logout", isAuthorized, authController.userLogout);
 
 export default router;

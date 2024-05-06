@@ -5,6 +5,7 @@ import express from "express";
 import morgan from "morgan";
 import { handleError } from "./middlewares/error.handler";
 import authRoute from "./routes/auth.route";
+import commentRoute from "./routes/comment.route";
 import postRoute from "./routes/post.route";
 import userRoute from "./routes/user.route";
 import { connectDB } from "./utils/connectDB";
@@ -32,6 +33,7 @@ app.get("/", (req, res) => {
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/post", postRoute);
+app.use("/api/v1/comment", commentRoute);
 app.use(handleError);
 
 const PORT = process.env.PORT || 8000;

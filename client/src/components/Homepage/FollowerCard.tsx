@@ -47,14 +47,20 @@ const FollowerCard = ({ follower }: Props) => {
                     <span>@{follower.name.split(" ").join("")}</span>
                 </Link>
             </div>
-            <button
-                className="button fc-button h-8 px-5"
-                onClick={() => handleFollowUser(follower._id, follower.name)}
-            >
-                {user?.following?.includes(follower._id)
-                    ? "Unfollow"
-                    : "Follow"}
-            </button>
+            {user?._id === follower._id ? null : (
+                <>
+                    <button
+                        className="button fc-button h-8 px-5"
+                        onClick={() =>
+                            handleFollowUser(follower._id, follower.name)
+                        }
+                    >
+                        {user?.following?.includes(follower._id)
+                            ? "Unfollow"
+                            : "Follow"}
+                    </button>
+                </>
+            )}
         </div>
     );
 };

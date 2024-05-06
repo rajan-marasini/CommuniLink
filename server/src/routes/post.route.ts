@@ -1,30 +1,23 @@
 import express from "express";
-import {
-    createPost,
-    deletePost,
-    getAllPosts,
-    getAllPostsOfUser,
-    getPost,
-    likePost,
-    updatePost,
-} from "../controllers/post.controller";
+import { PostController } from "../controllers/post.controller";
 import { isAuthorized } from "../middlewares/auth.middleware";
 import { Post } from "../models/post.model";
 
 const router = express.Router();
+const postController = new PostController();
 
-router.post("/create", isAuthorized, createPost);
-router.get("/all-posts", getAllPosts);
-router.get("/get-post-of/:userId", getAllPostsOfUser);
-router.post("/like/:postId", isAuthorized, likePost);
+router.post("/create", isAuthorized, postController.createPost);
+router.get("/all-posts", postController.getAllPosts);
+router.get("/get-post-of/:userId", postController.getAllPostsOfUser);
+router.post("/like/:postId", isAuthorized, postController.likePost);
 router.get("/delete", async (req, res) => {
     await Post.deleteMany();
     res.send("ok");
 });
 router
     .route("/:postId")
-    .get(getPost)
-    .put(isAuthorized, updatePost)
-    .delete(isAuthorized, deletePost);
+    .get(postController.getPost)
+    .put(isAuthorized, postController.updatePost)
+    .delete(isAuthorized, postController.deletePost);
 
 export default router;
