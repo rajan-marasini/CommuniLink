@@ -21,6 +21,7 @@ app.use(
     cors({
         origin: [
             "http://localhost:5173",
+            "https://communi-link-client.vercel.app",
             "https://communi-link-client-git-main-razan-marasinis-projects.vercel.app",
             "https://communi-link-client-pbxgw7a29-razan-marasinis-projects.vercel.app",
         ],
