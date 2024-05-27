@@ -140,7 +140,7 @@ const ProfileModal = () => {
                             State
                         </label>
                         <Input
-                            defaultValue={user?.address?.state}
+                            defaultValue={user?.address}
                             className="mt-1 px-3 py-1 border border-gray-300 rounded-md w-full"
                         />
                     </div>
@@ -152,7 +152,7 @@ const ProfileModal = () => {
                             City
                         </label>
                         <Input
-                            defaultValue={user?.address?.city}
+                            defaultValue={user?.address}
                             className="mt-1 px-3 py-1 border border-gray-300 rounded-md w-full"
                         />
                     </div>
@@ -164,7 +164,7 @@ const ProfileModal = () => {
                             Street
                         </label>
                         <Input
-                            defaultValue={user?.address?.street}
+                            defaultValue={user?.address}
                             className="mt-1 px-3 py-1 border border-gray-300 rounded-md w-full"
                         />
                     </div>
