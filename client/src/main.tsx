@@ -9,7 +9,7 @@ import { store } from "./app/store.ts";
 import { ThemeProvider } from "./components/utils/theme-provider.tsx";
 import "./index.css";
 
-axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL!;
 axios.defaults.withCredentials = true;
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
