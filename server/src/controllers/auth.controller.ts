@@ -60,7 +60,11 @@ export class AuthController {
 
             return res
                 .status(200)
-                .cookie("token", token)
+                .cookie("token", token, {
+                    httpOnly: true,
+                    secure: true,
+                    sameSite: "none",
+                })
                 .json({
                     success: true,
                     message: "User login successfully",
@@ -99,7 +103,7 @@ export class AuthController {
                     .status(200)
                     .cookie("token", token, {
                         httpOnly: true,
-                        secure: process.env.NODE_ENV === "production",
+                        secure: true,
                         sameSite: "none",
                     })
                     .json({
