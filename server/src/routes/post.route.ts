@@ -1,3 +1,4 @@
+import { faker } from "@faker-js/faker";
 import express from "express";
 import { PostController } from "../controllers/post.controller";
 import { isAuthorized } from "../middlewares/auth.middleware";
@@ -10,9 +11,25 @@ router.post("/create", isAuthorized, postController.createPost);
 router.get("/all-posts", postController.getAllPosts);
 router.get("/get-post-of/:userId", postController.getAllPostsOfUser);
 router.post("/like/:postId", isAuthorized, postController.likePost);
-router.get("/delete", async (req, res) => {
+
+router.delete("/delete", async (req, res) => {
     await Post.deleteMany();
-    res.send("ok");
+    return res.json({ message: "all post deleted" });
+});
+router.put("/fake", isAuthorized, async (req, res) => {
+    const id = req.user?._id;
+    let count = 0;
+    const POST_LENGTH = 5;
+
+    for (let i = 0; i < POST_LENGTH; i++) {
+        await Post.create({
+            userId: id,
+            title: faker.lorem.sentence(),
+            imageSrc: faker.image.url(),
+        });
+        count++;
+    }
+    return res.json({ message: `Created ${count} posts` });
 });
 router
     .route("/:postId")

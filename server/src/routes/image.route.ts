@@ -15,4 +15,4 @@ router.post(
     imageController.uploadImage
 );
 
-export { router as imageRoute };
+export default router;
